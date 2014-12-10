@@ -1,0 +1,128 @@
+% This is LLNCS.DOC the documentation file of
+% the LaTeX2e class from Springer-Verlag
+% for Lecture Notes in Computer Science, version 2.4
+\documentclass[12pt]{llncs}
+
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{lipsum}
+\usepackage{listings}
+\lstset{
+	basicstyle=\ttfamily,
+	breaklines=true,
+	commentstyle=\color{ForestGreen}\ttfamily,
+	frame=single,
+	keywordstyle=\color{blue}\ttfamily,
+	language=Java,
+	numbers=left,
+	stringstyle=\color{red}\ttfamily,
+	showstringspaces=false
+	morecomment=[l][\color{magenta}]{\#},
+	}
+\usepackage{llncsdoc}
+%
+
+\setlist{itemsep=5pt}
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+  
+\newcommand\newsection[1]{
+\begin{center}
+  \invisiblesection{#1}
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries #1 \\[0.4cm] }
+\HRule \\[0.4cm]
+\end{center}
+}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\newenvironment{dedication}
+  {\clearpage           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top 
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+  
+\begin{document}
+
+\setlist[enumerate,1]{label*=\arabic*,font=\bfseries,before=\bfseries}
+\setlist[enumerate,2]{label*=.\arabic*,font=\normalfont,before=\normalfont}
+
+\begin{center}
+
+\textsc{\LARGE Arizona State University}\\[1.5cm]
+
+\textsc{\Large School of Computing, Informatics, and Decision Systems Engineering}\\[0.5cm]
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries CSE 205 Lecture Notes \\[0.4cm] }
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{center} \large
+\textsc{Ryan Dougherty
+\href{mailto:redoughe@asu.edu}{redoughe@asu.edu}
+}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+%{\large \today}
+
+\end{center}
+%\markboth{CSE110 Lecture Notes}{CSE110 Lecture Notes}
+%\thispagestyle{empty}
+%\begin{flushleft}
+%\LARGE\bfseries Ryan Dougherty\\[2cm]
+%\end{flushleft}
+%\rule{\textwidth}{1pt}
+%\vspace{2pt}
+%\begin{flushright}
+%\Huge
+%\begin{tabular}{@{}l}
+%CSE110 Lecture Notes\\[6pt]
+%{\Large Version 1.0}
+%\end{tabular}
+%\end{flushright}
+%\rule{\textwidth}{1pt}
+%\vfill
+\newpage
+
+\begin{dedication}
+To my friends and family
+\end{dedication}
+
+%
+\input{01_introduction}\newpage
+%\input{02_computers}\newpage
+%\input{03_datatypes}\newpage
+%\input{04_decisions}\newpage
+%\input{05_loops}\newpage
+%\input{06_introclasses}\newpage
+%\input{07_methods}\newpage
+%\input{08_static}\newpage
+%\input{09_overloading}\newpage
+%\input{10_arrays}\newpage
+%\input{11_searching}\newpage
+%\input{12_sorting}
+\end{document}
