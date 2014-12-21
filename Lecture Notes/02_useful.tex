@@ -1,0 +1,35 @@
+\newsection{Useful Bits \& Pieces}
+%
+In this section we will give a few ``miscellaneous" bits of information that are not big enough topics to warrant a whole section, but are nevertheless important. Knowledge from the first set of lecture notes is assumed.
+
+\subsection{String.split}
+There is a useful method in the \verb|String| class called \verb|split(String)| - it returns a \verb|String| array (\verb|String[]|) that consists of the \verb|String| being called on without all instances of the passed in \verb|String|. The passed in \verb|String| is often called the ``delimiter." Here we give some examples:
+\begin{lstlisting}
+String original = "I am going to learn Java!";
+String[] allWords = original.split(" ");
+// allWords = {"I", "am", "going", "to", "learn", Java!"};
+String[] words2 = original.split("a");
+// allWords = {"I ", "m going to le", "rn J", "v", "!"};
+\end{lstlisting}
+
+\subsection{ArrayList}
+Dealing with ordinary arrays in Java (or any programming language) is quite a hassle. Therefore, there is a class in the \verb|java.util| package called \verb|ArrayList|, which is an object wrapper for an array. It is a \emph{templated} type, which means it has angle brackets to denote what type is allowed in the \verb|ArrayList| (this type must be an \verb|Object|, not a primitive type). Here are some examples of its use:
+\begin{lstlisting}
+ArrayList<Integer> ints = new ArrayList<Integer>(); // example of initialization - must be Integer, not int
+ints.add(0);
+ints.add(2);
+ints.add(0); // can add 0 again
+ints.add(1, 2); // add 2 at index 1
+ints.remove(3); // remove element at index 3
+int value = ints.get(1); // gets element at index 1
+ints.set(0, 5); // sets index 0 to 5
+if (ints.isEmpty()) {
+     System.out.println("The array is empty!");
+}
+// for loop over the array
+for (int i=0; i<ints.size(); i++) {
+     System.out.println(ints.get(i));
+}
+ints.clear(); // ints has no elements
+\end{lstlisting}
+There is another class called \verb|Vector|, also in the same package, that provides the same interface as \verb|ArrayList|, but is thread-safe, whereas \verb|ArrayList| is not. This means \verb|Vector| is useful in multithreaded environments, as we will see in a later chapter.

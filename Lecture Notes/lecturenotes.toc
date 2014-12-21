@@ -1,1 +1,4 @@
 \contentsline {section}{\numberline {1}Introduction}{4}{section.0.1}
+\contentsline {section}{\numberline {2}Useful Bits \& Pieces}{5}{section.0.2}
+\contentsline {subsection}{\numberline {2.1}String.split}{5}{subsection.0.2.1}
+\contentsline {subsection}{\numberline {2.2}ArrayList}{5}{subsection.0.2.2}
