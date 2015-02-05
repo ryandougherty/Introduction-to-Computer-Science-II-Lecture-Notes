@@ -1,0 +1,30 @@
+\newsection{Big-O Notation}
+%
+In this short section we will introduce the idea of Big-O notation. It is a measure for analyzing asymptotic (i.e. as the input size ``becomes large") behavior and time to run the algorithm.
+
+\subsection{Big-O}
+One concept that is often used in Computer Science is asymptotic notation, and Big-O notation is one of those. It is usually written of the form:
+\begin{align*}
+O(f(n))
+\end{align*}
+where $f(n)$ is some function that depends on $n$. We will try to avoid the formal mathematics behind Big-O notation, but it essentially involves looking at an algorithm, and observing the behavior of it if the input is of size $n$. For example, if we were linearly searching through an array, on average, we will look at around $\frac{n}{2}$ elements - therefore, that will be the number of operations, on average, that we will do to run the algorithm. In Big-O notation, however, we discard any constant factors (or lower-order terms). Therefore, we say linear search runs in $O(n)$ time.
+
+\subsection{Example}
+Let's analyze the running time of Binary Search for Big-O notation. Each time we run through the loop, we effectively remove half of the search space. So, if the array size was $n$, we will perform $x$ steps, where $2^x = n$. Solving this equation for $x$ yields that $x$ is approximately $log_2{n}$. Since $log_2{n} = \frac{log(n)}{log(2)}$, binary search runs in $O(log(n))$ time.
+
+\subsection{Note}
+A few things to consider:
+\begin{itemize}
+\item Any operation that takes constant time is marked as $O(1)$.
+\item Any two operations with time $O(f(n))$ and $O(g(n))$ will, put together, have running time $O(f(n) + g(n))$. For example, $O(n) + O(n)$ corresponds to an algorithm that runs in time $O(n)$.
+\end{itemize}
+
+\subsection{Best, Average, Worst Case}
+You may have noticed in trying to analyze other algorithms that there are multiple paths to take sometimes. How do you analyze this? You can in three ways: best, average, and worst cases. The best case corresponds to the absolute lowest amount of asymptotic time that is possible to complete the algorithm, and worst corresponds to highest. Average case is harder to study (how does one define ``average"?), so we will leave this out. Most algorithm analysis does worst case, because it provides a guarantee on the running time - the algorithm is guaranteed to asymptotically run in less time than in the worst case.
+
+\subsection{Written Exercises}
+\setcounter{counter}{1}
+\begin{enumerate}[label={\arabic{counter}\addtocounter{counter}{1}}.]
+\item What are the running times of \{Selection, Insertion\} Sort?
+\item What is the Big-O notation of the function $f(n) = 3n^3 + 2n^2 + n$?
+\end{enumerate}

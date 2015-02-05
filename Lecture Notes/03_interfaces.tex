@@ -1,0 +1,114 @@
+\newsection{Interfaces, Abstraction, \& Polymorphism}
+%
+In this section we will start the ``real" part of this second set of lecture notes. This particular section deals with some object-oriented design principles, and Java supports them very well.
+
+\subsection{Interfaces}
+An interface has the same structure as a class, but instead has the \verb|interface| keyword where \verb|class| would go, and only consists of two things: method declarations (the signature of the method plus a semicolon), and constants (with the \verb|final| keyword). An interface is a ``contract" of sorts, where some normal class will ``implement" (via the \verb|implements| keyword). By doing this, that particular class must implement every single method listed in the interface - otherwise, it is a compiler error. For example, if we created an interface for a \verb|Ship|:
+\begin{lstlisting}
+public interface ShipInterface {
+     public void shoot(); // just a declaration, no implementation
+}
+\end{lstlisting}
+We can then implement this interface in any class we see fit:
+\begin{lstlisting}
+public class Ship implements ShipInterface {
+     // ...
+     // not including shoot() will have a compiler error
+     public void shoot() {
+          System.out.println("This ship did shoot!");
+     }
+     // ...
+}
+\end{lstlisting}
+We can also implement multiple interfaces at once as comma-separated values:
+\begin{lstlisting}
+public class A implements Interface1, Interface2, Interface3 {
+     // ...
+}
+\end{lstlisting}
+
+\subsection{Inheritance}
+Inheritance is a well-known technique in object-oriented programming to organize a lot of similar code in a hierarchical way. In this system, there are two kinds of classes: $children$ (or $base$), and $parent$ (or $super$) classes. The way it works is that the child classes inherit some information from the parent class. For Java, a parent can have one or more children, but a child can have at most one parent. Also, one may only inherit from a class if it is not declared as \verb|final|.
+\\ \\
+A child class that inherits from a parent class gets all of the \verb|public| methods, but none of the \verb|private| methods (it does get \verb|private| instance variables, however). So how do we enforce encapsulation for child classes then? This is where the \verb|protected| keyword comes in. It has the same behavior as \verb|private|, but any classes that inherit from it can use it. It is somewhat more ``free" than \verb|private|, but also has encapsulation.
+\\ \\
+In Java, in order to inherit from a class, one must use the \verb|extends| keyword:
+\begin{lstlisting}
+public class A {
+     // ...
+}
+public class B extends A {
+     // ...
+}
+\end{lstlisting}
+A way that inheritance is useful is for allowing code reuse for child classes. For example, one may use the \verb|super| keyword to denote the parent method/constructor to call, and it calls the appropriate method/constructor in the parent class:
+\begin{lstlisting}
+public class A {
+     public A() {
+          // ...
+     }
+}
+public class B extends A {
+     public B() {
+          super(); // calls A();
+          // ...
+     }
+}
+\end{lstlisting}
+Also, for all of the instance variables declared in the parent class, one does not need to re-declare them in child classes. However, one must use the \verb|this| modifier to do so:
+\begin{lstlisting}
+public class A {
+     private int a;
+     public A() {
+          a = 0;
+     }
+}
+public class B extends A {
+     public B() {
+          this.a = 1; // must use this modifier
+     }
+}
+\end{lstlisting}
+
+\subsection{Abstract}
+Another keyword in Java is the \verb|abstract| keyword. It is used for a class (that now has the \verb|abstract| modifier) that says that ``this method will be implemented in child classes, but I won't personally implement it." The \verb|abstract| method in the parent class is just a method header (like would be in an interface, but now has the \verb|abstract| modifier), and is a normal method in child classes. Here is an example:
+\begin{lstlisting}
+public abstract class Person {
+     public abstract double computePay();
+}
+public class CEO extends Person { // no abstract
+     public double computePay() { // no abstract
+          return 100000.0;
+     }
+}
+\end{lstlisting}
+
+\subsection{Polymorphism}
+Now we get to the most important part of this section - polymorphism. It is a way, at runtime, for deciding which method to call when there is a hierarchy of classes, and is relevant to inheritance. For example, if we have the classes:
+\begin{lstlisting}
+public class A {
+     public void m() { ... }
+}
+public class B extends A {
+     public void m() { ... }
+}
+public class C extends A {
+     public void m() { ... }
+}
+\end{lstlisting}
+We can develop code that has variables that can be one or more of these different classes without having to rewrite code:
+\begin{lstlisting}
+A a1 = new A(); // works
+B b1 = new B(); // works
+C c1 = new C(); // works
+A a2 = new B(); // ok, B has all attributes of A
+// B b2 = new A(); // not ok, A does not have attributes of B
+a2.m(); // calls B.m() even though a2 has declared type A
+a1.m(); // calls A.m() because a1 is of type A
+\end{lstlisting}
+
+\subsection{Written Exercises}
+\setcounter{counter}{1}
+\begin{enumerate}[label={\arabic{counter}\addtocounter{counter}{1}}.]
+\item What is the meaning of declaring a class \verb|abstract| and \verb|final|? What do you think will happen?
+\end{enumerate}

@@ -1,0 +1,54 @@
+\newsection{Recursion}
+%
+In this section we will introduce the concept of recursion. Recursion is all about reducing source code complexity by calling the method in which the statements occur with a ``smaller" parameter. We will give a motivating example: computing the factorial of an integer. 
+\\ \\
+For recursion to work, we need two key factors: base case(s), and sub-problem(s). The base case(s) is/are what define when the recursion terminates, and handle the ``simple" examples. The sub-problem(s) are all about assuming that the problem of the size given by the sub-problem(s) is/are solved. Then, all we need to provide is the code to move from the sub-problem to the initial problem. Choosing an appropriate sub-problem size is problem-specific, but common examples include decreasing the input by 1, or dividing by 2.
+
+\subsection{Example: Factorial}
+The factorial of an integer, written $x!$, is precisely $1 \times 2 \times 3 \times ... \times (x-1) \times x$. We could write a simple \verb|for|-loop, as follows:
+\begin{lstlisting}
+public int factorial(int x) {
+     int xCopy = x;
+     int result = 1;
+     while (xCopy >= 1) {
+          result *= xCopy;
+          xCopy--;
+     }
+}
+\end{lstlisting}
+But there are too many cases for the program to give the wrong output.
+\\ \\
+For example, the base cases for factorial are: $0! = 1$ and $1! = 1$. An appropriate sub-problem for factorial is $(x-1)!$. Moving from $(x-1)!$ to $x!$ is easy: all we need to do is multiply by $x$, since $(x-1)! \times x = x!$. Since we have both the base cases and the sub-problem, we can now define a recursive version of factorial:
+\begin{lstlisting}
+public int factorialRecursive(int x) {
+     // handle base cases first
+     if (x == 0 || x == 1) { // can also use x <= 1
+          return 1;
+     } else { // handle subproblem step
+          return factorialRecursive(x-1) * x;
+     }
+}
+\end{lstlisting}
+As one can see, if we did not have a base case, then the method would keep calling itself over and over without terminating. Therefore, when doing recursion, \textbf{always have a base case}. 
+
+\subsection{Example: Fibonacci Numbers}
+The Fibonacci numbers are defined as follows: $F_0 = 1, F_1 = 1, F_n = F_{n-1} + F_{n-2}$ for $n \ge 2$. The first few Fibonacci numbers are 1, 1, 2, 3, 5, 8, 13, and so forth. Informally, each number is the sum of the previous two. Again, we could create a \verb|for|-loop to find the $n$th Fibonacci number, but we can simplify with recursion.
+\\ \\
+So what are the base cases? They were given to us: $F_0 = 1, F_1 = 1$. So what is the subproblem? We actually have two here: $F_{n-1}$, and $F_{n-2}$. To get to $F_n$, all we need to do is to add $F_{n-1}$ and $F_{n-2}$. Therefore, we can easily create a recursive version for the Fibonacci numbers:
+\begin{lstlisting}
+public int fibonacciRecursive(int n) {
+     if (n == 0 || n == 1) {
+          return 1;
+     } else {
+          return fibonacciRecursive(n-1) + 
+                 fibonacciRecursive(n-2);
+     }
+}
+\end{lstlisting}
+
+%\subsection{Written Exercises}
+%\setcounter{counter}{1}
+%\begin{enumerate}[label={\arabic{counter}\addtocounter{counter}{1}}.]
+%\item What is the big-O notation for the operations on a \{linked list, stack, queue\}?
+%\item What do you think is the big-O notation for cost of inserting an element into an array/\verb|ArrayList|? Assume, if needed, constructing a new array/\verb|ArrayList| takes $O(1)$ time.
+%\end{enumerate}

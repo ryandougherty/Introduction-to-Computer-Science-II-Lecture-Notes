@@ -1,0 +1,33 @@
+\newsection{Linked List, Stack, Queue}
+%
+In this section we will introduce 4 new data structures.
+
+\subsection{Linked List}
+A Linked List (\verb|java.util.LinkedList|) is a very simple data structure. It consists of \verb|Node|s that have a $data$ member and a $pointer$ which points to another \verb|Node| (a ``doubly linked list" has 2 pointers - i.e. one points ``forward" and the other ``backward"). This construction may be very similar to that of an array, but has distinct advantages:
+\begin{itemize}
+\item If one is at a particular \verb|Node|, one can remove/add a \verb|Node| in $O(1)$ time. This is not possible for arrays, which takes $O(n)$ time (shifting elements forward or back depending on the operation).
+\item The linked list does not need to be reallocated, since the pointer points to the next \verb|Node|, which may or may not be near the current one in memory.
+\end{itemize}
+However, there are disadvantages:
+\begin{itemize}
+\item If one loses the beginning (sometimes called $head$) pointer, then there is no other way of accessing other elements in the linked list, since that beginning pointer was the only \verb|Node| pointing to the second \verb|Node|, which points to the third, etc.
+\item One needs to traverse the linked list to get to a specific index, since one cannot just access any given index - therefore, accessing a specific element takes $O(n)$ time (to traverse); for arrays, since we can index directly, this takes $O(1)$ time.
+\end{itemize}
+Despite these disadvantages, we will see two data structures - Stack and Heap - that can be implemented using a linked list in an efficient way. 
+
+\subsection{Stack}
+A Stack (\verb|java.util.Stack|) is a data structure that resembles a stack of books - you can insert books one at a time on the top of the stack, but you can only remove the top item from the stack one at a time. One cannot directly any element in the stack other than the top element (if it exists). A stack, therefore, is called a LIFO (last-in-first-out) data structure. The operations are as follows: \verb|pop|, remove the top element and return it; \verb|push|, add an element to the top of the stack; \verb|peek|, see the top element without doing anything to it. All stack operations require $O(1)$ time, since they do not depend on the size of the stack.
+\\ \\
+A Stack is implementable using a Linked List, where the head pointer is the top of the Stack. When one adds an element to the top of the Stack, the head pointer changes to the new element, and the new element's pointer points to the original top element.
+
+\subsection{Queue}
+A Queue (\verb|java.util.Queue|) is a data structure that resembles a line queue of people - people can be serviced from the front of the queue one at a time in order, and people can enter the back of the queue one at a time. A queue, therefore, is called a LILO or FIFO (last-in-last-out or first-in-first-out) data structure. The operations are as follows: \verb|enqueue|, insert an element into the back of the queue; \verb|dequeue|, remove the element at the front of the queue. All queue operations require $O(1)$ time, since they do not depend on the size of the queue.
+\\ \\
+A Queue is implementable using a Linked List, where one has a pointer to the front of the queue, and another to the back of the queue. It is much easier to implement a Queue using a doubly linked list than a singly linked list, but it is still possible.
+
+\subsection{Written Exercises}
+\setcounter{counter}{1}
+\begin{enumerate}[label={\arabic{counter}\addtocounter{counter}{1}}.]
+\item What is the big-O notation for the operations on a \{linked list, stack, queue\}?
+\item What do you think is the big-O notation for cost of inserting an element into an array/\verb|ArrayList|? Assume, if needed, constructing a new array/\verb|ArrayList| takes $O(1)$ time.
+\end{enumerate}
