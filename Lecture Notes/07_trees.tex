@@ -1,0 +1,51 @@
+\newsection{Trees}
+%
+In this section we will introduce the trees data structure. It allows efficient lookup but not much larger storage space for $n$ data elements. Then we will introduce several subclasses of trees.
+
+\subsection*{Trees}
+We will think all elements of a tree as ``nodes." In a tree, there is a ``root" node that is the top of the tree. Any node can connect to any other node in the tree, such that there are no cycles in the tree (i.e., one can traverse some set of nodes and get back to where one started). All nodes that a node is connected to are called the ``children" of that node. Any node that does not have any children is called a ``leaf node." Any non-leaf and non-root nodes are called the ``internal nodes" of the tree. For a general tree, there can be arbitrarily many children per node.
+
+\subsection*{Binary Trees}
+A binary tree is defined as a tree that has a maximum of 2 children for each node. One can think of each node as a ``sub-tree" of the tree that has a root as that node. Therefore, each node in a binary tree is a root of a sub-tree of the whole tree. Since each node has at most 2 children, then we can think of one as the ``right" node and the other as the ``left." For an implementation, a particular node is very easy:
+
+\begin{lstlisting}
+public class Node {
+     Object data;
+     Node rightNode;
+     Node leftNode;
+}
+\end{lstlisting}
+
+\subsection*{Traversals}
+Now that we have a binary tree, how do we traverse the tree? There are three ways of doing so:
+\begin{itemize}
+\item Pre-order: root-left-right
+\item In-order: left-root-right
+\item Post-order: left-right-root
+\end{itemize}
+We will explain what each of these items mean; take pre-order for example. Starting at the root node, we process the root's data, then we recursively call the pre-order function on the node's left child; when that is complete, we recursively call the function on the right child. For example, the following would be an implementation of a pre-order traversal:
+
+\begin{lstlisting}
+public void preOrderTraversal(Node node) {
+     // first call to preOrderTraversal has node == root
+     processData(node.data); // process the node's data
+     if (node.leftNode != null) {
+          preOrderTraversal(node.leftNode);
+     }
+     if (node.rightNode != null) {
+          preOrderTraversal(node.rightNode);
+     }
+}
+\end{lstlisting}
+The other two traversals are defined and implemented very similarly.
+
+\subsection*{Binary Search Trees}
+
+
+\subsection{Written Exercises}
+\setcounter{counter}{1}
+\begin{enumerate}[label={\arabic{counter}\addtocounter{counter}{1}}.]
+\item Is it possible to take any recursive function/program and convert it into some kind of iterative loop (i.e. a \verb|for|, or \verb|while| loop)?
+\item What is the running time of the fibonacci algorithm?
+\item Find a way of optimizing the recursive fibonacci algorithm (hint: ``keep track" of pre-existing solutions by using an array).
+\end{enumerate}
