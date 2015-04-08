@@ -1,0 +1,118 @@
+\newsection{Heaps}
+%
+In this section we will introduce the heaps data structure. It is a special type of binary search tree that is used for many data structures.
+
+\subsection*{Heaps}
+A heap is defined as a binary search tree such that it has the following properties:
+\begin{itemize}
+\item The tree is complete: this means that each row of the tree is completely full except for possibly the last row.
+\item There is some constraint on the elements.
+\end{itemize}
+For example, the constraint for adding an element to the heap is that the two child nodes are less than or equal to the parent. This example is called a ``max" heap (i.e., the root is the maximum element in the heap).
+
+\subsection*{Heap Operations}
+Heaps support the following operations:
+\begin{itemize}
+\item Adding an element to the heap.
+\item Finding the maximum value in the heap.
+\item Removing the maximum value in the heap.
+\end{itemize}
+We now detail each of these operations and how they work.
+
+\subsection*{Adding an Element}
+To add an element $x$ to a heap, we do the following:
+\begin{itemize}
+\item Add $x$ as a leaf such that the heap is still complete.
+\item Move $x$ toward the root, exchanging positions with its parent, until the heap property says that $x$ cannot move up the heap any more.
+\end{itemize}
+
+\subsection*{Removing Largest Element}
+To remove the largest element from a heap, we do the following (assuming we have a max heap):
+\begin{itemize}
+\item Remove the root and reconstruct heap from the 2 disjoint sub-heaps.
+\item Move the last leaf of the heap to be the new heap of the tree.
+\item Move this new root down the heap as needed until the heap property says that it cannot move down the heap any more.
+\end{itemize}
+
+\subsection*{HeapSort}
+A while ago we covered various sorting algorithms. There actually is a very fast algorithm for sorting using the heap data structure. The way that it works (informally) is that it adds each element from a list into a heap, and then removes them one at a time. The largest element comes off the heap first, and then after re-``heapifying" (fixing the heap), the entire sequence of removing elements will be in descending order.
+
+\par The following is how the algorithm works:
+\begin{itemize}
+\item Build a heap from the array (as a max-heap) of size $n$.
+\item Repeat the following $n$ times: extract the root, put it aside.
+\item The order of extraction is a sorted array, in ascending order. If we instead wanted an array in descending order, we use a min-heap.
+\end{itemize}
+
+\par The key to how this algorithm works is the re-``heapifying" step. The following is how that algorithm works:
+\begin{itemize}
+\item Repeat the following until both children are larger or are at the bottom of the heap:
+\item Compare the node and its children. If at least one of them is larger than the node, swap it with the larger child; otherwise, we terminate. 
+\item If we don't terminate, we go back to the first step with the node's new location.
+\end{itemize}
+
+\subsection*{HeapSort in Java}
+The following is an implementation of HeapSort in Java, which uses many of the concepts described above.
+
+\begin{lstlisting}
+public class HeapSorter {
+     private int[] a;
+     public HeapSorter(int[] anArray) {
+          a = anArray;
+     }   
+     // Sorts the array managed by this heap sorter.
+     public void sort() {
+          int n = a.length - 1;
+          // for each node that has at least one child node
+          for (int i = (n - 1) / 2; i >= 0; i--)
+               fixHeap(i, n);
+          while (n > 0) {
+               swap(0, n);
+               n--;
+               fixHeap(0, n);
+           }
+     }
+     private void swap(int i, int j) {
+          int temp = a[i];
+          a[i] = a[j];
+          a[j] = temp;
+     }
+     private void fixHeap(int rootIndex, int lastIndex) {
+          int rootValue = a[rootIndex];   //Remove root
+          // Promote children while they are larger than the root
+          int index = rootIndex;
+          boolean more = true;
+          while (more) {
+               int childIndex = getLeftChildIndex(index);
+               if (childIndex <= lastIndex) {
+                    // Use right child instead if it is larger
+                    int rightChildIndex = getRightChildIndex(index);
+                    if (rightChildIndex <= lastIndex &&
+                         a[rightChildIndex] > a[childIndex]) {
+                         childIndex = rightChildIndex;
+                    }
+                    if (a[childIndex] > rootValue) {
+                         // Promote child
+                         a[index] = a[childIndex];
+                         index = childIndex;
+                    } else {
+                         // Root value is larger than both children
+                         more = false;
+                    }
+               } else {
+                    // No children
+                    more = false; 
+               }
+          }
+          // Store root value in vacant slot
+          a[index] = rootValue;
+     }
+     private static int getLeftChildIndex(int index) {
+          return 2 * index + 1;
+     }
+     private static int getRightChildIndex(int index) {
+          return 2 * index + 2;
+     }
+}
+\end{lstlisting}
+A straightforward analysis shows that the worst-case running time of HeapSort is $O(n \times log(n))$ for an array of size $n$.
